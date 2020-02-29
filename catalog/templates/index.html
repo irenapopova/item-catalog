@@ -13,9 +13,17 @@
     <h1>Book Swap</h1>
 
     <h2>CATEGORIES</h2>
-    {% for categorie in categories %}
-    <li>{{categorie}}</li>
+    {% for category in categories %}
+    <li>{{category.name}}</li>
+    <!--displays the database(the name of every category)-->
     {% endfor %}
+
+    <h2>Books</h2>
+    {% for book in books %}
+    <li>{{book.name}}</li>
+    <!--displays the database(the name of every category)-->
+    {% endfor %}
+
     <ul>
 
     </ul>
@@ -24,6 +32,8 @@
     <ul>
         <li>Fiction</li>
     </ul>
+
+
 
 </body>
 
