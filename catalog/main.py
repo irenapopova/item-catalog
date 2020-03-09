@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from db_setup import session
 from db_setup import Category, Book  # FETCH, define THE CATEGORY OBJECT
+from wtforms.ext.sqlalchemy.orm import model_form
 
 app = Flask(__name__)
 
@@ -8,7 +9,6 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 def main():
     '''Main page of the forum.'''
-    # TODO Fetch it from db
 
     # User is the name of table that has a column name
     categories = session.query(Category).all()
@@ -19,13 +19,27 @@ def main():
 
 @app.route('/login')
 def login():
-    return "<div class='login'>Login</div>"
+    return render_template("log_in.html")
+    # return "<div class='login'>Login</div>"
 
 
-@app.route('/books/<id>')
+@app.route('/categories/<id>')  # the id is the named parameter in the url_for
+def category_detail(id):
+    return render_template("category.html", id=id)
+
+
+@app.route('/books/<id>')  # the id is the named parameter in the url_for
 def book_detail(id):
     return render_template("book.html", id=id)
 # fetches the data
+
+
+BookForm = model_form(Book)
+@app.route('/books/<id>/edit')  # the id is the named parameter in the url_for
+def edit_book(id):
+    pass  # do nothing simply continue
+
+# render turn into html
 
 
 app.config["TESTING"] = True

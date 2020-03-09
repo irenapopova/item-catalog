@@ -1,13 +1,69 @@
-body {
-    color: blue;
-}
+* {
+    box-sizing: border-box;
 
-.login {}
+}
 
 body {
     background: #e06565;
     color: #333333;
     margin-top: 5rem;
+    margin: 0;
+}
+
+.header {
+    background-color: red;
+    margin-top: 0;
+    margin-bottom: 20px;
+    width: 100%;
+
+
+}
+
+.content {
+    max-width: 800px;
+    margin: auto;
+    /* center the value*/
+    display: flex;
+    /*it tells the children how to distributes themselves*/
+    justify-content: space-between;
+
+}
+
+.container_categories {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 1rem;
+    display: flex;
+
+}
+
+.books {
+    border-left: 1px solid #428bca;
+    padding-left: 75px;
+    margin-left: 75px;
+
+}
+
+/*.login a  - targets all of the a elements in the parent login */
+.login a {
+    color: green;
+    transition: all 4s;
+    transform: rotate(0turn);
+    /*half turn*/
+
+    display: block;
+
+}
+
+/* a block element is like a div , they stack underneath 
+inline element is opposite they behave like text 
+*/
+
+.login a:hover {
+    color: blue;
+    transform: rotate(1turn);
+    /*full turn*/
 }
 
 h1,
