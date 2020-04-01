@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# 
+#
 # tournament.py -- implementation of a Swiss-system tournament
 #
 
@@ -15,23 +15,57 @@ def deleteMatches():
     """Remove all the match records from the database."""
 
 
+db_connection = connect()
+cursor = db_connection.cursor()
+cursor.execute("delete from matches")
+db_connection.commit()
+​
+​
+
+
 def deletePlayers():
     """Remove all the player records from the database."""
+
+
+db_connection = connect()
+cursor = db_connection.cursor()
+cursor.execute("delete from player")
+db_connection.commit()
+​
+​
 
 
 def countPlayers():
     """Returns the number of players currently registered."""
 
 
+db_connection = connect()
+cursor = db_connection.cursor()
+cursor.execute("select count(*) from player")
+data = cursor.fetchone()
+return data[0]
+
+
 def registerPlayer(name):
     """Adds a player to the tournament database.
-  
+
     The database assigns a unique serial id number for the player.  (This
     should be handled by your SQL database schema, not in your Python code.)
-  
+
     Args:
       name: the player's full name (need not be unique).
     """
+
+
+db_connection = connect()
+  cursor = db_connection.cursor()
+   try:
+        cursor.execute("""INSERT INTO player(name) VALUES('"""+name+"""')""")
+    except Exception as error:
+        print(error)
+    db_connection.commit()
+    cursor.close()
+​
 
 
 def playerStandings():
@@ -56,16 +90,16 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
- 
- 
+
+
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.
-  
+
     Assuming that there are an even number of players registered, each player
     appears exactly once in the pairings.  Each player is paired with another
     player with an equal or nearly-equal win record, that is, a player adjacent
     to him or her in the standings.
-  
+
     Returns:
       A list of tuples, each of which contains (id1, name1, id2, name2)
         id1: the first player's unique id
@@ -73,5 +107,3 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
-
-
