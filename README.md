@@ -27,6 +27,6 @@ run in project file in terminal : flask run
 3. Launch and run the Virtuall Machine
 4. Run ssh
 5. Switch a folder with a command cd /
-6. Run DB with a command python category_list.py
+6. Run DB with a command python main.py
 7. Launch the application with a command : python w.py
 8. Open it in your browser localhost:5000
