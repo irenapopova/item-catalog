@@ -14,6 +14,17 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
 
+    def __init__(self):
+        self.id = id
+        self.name = name
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name
+        }
+
 # create a relation between book and category
 
 
@@ -29,6 +40,27 @@ class Book(Base):
     description = Column(String(500), nullable=False)
     image = Column(String(300), nullable=False)
 
+    def __init__(self):
+        self.id = id
+        self.category = category
+        self.name = name
+        self.author = author
+        self.price = price
+        self.description = description
+        self.image = image
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'category': self.category,
+            'name': self.name,
+            'author': self.author,
+            'price': self.price,
+            'description': self.description,
+            'image': self.image
+        }
+
 
 class User(Base):
     __tablename__ = 'user'
@@ -37,12 +69,34 @@ class User(Base):
     firstName = Column(String(250), nullable=False)
     lastName = Column(String(250), nullable=False)
 
+    def __init__(self):
+        self.id = id
+        self.name = name
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name
+        }
+
 
 class Favorite(Base):
     __tablename__ = 'favorite'
     id = Column(Integer, primary_key=True)
     user = Column(Integer, ForeignKey("user.id"))
     book = Column(Integer, ForeignKey("book.id"))
+
+    def __init__(self):
+        self.id = id
+        self.name = name
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name
+        }
 
 
 engine = create_engine('sqlite:///db.db')
