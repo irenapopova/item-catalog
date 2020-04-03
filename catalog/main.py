@@ -1,25 +1,69 @@
-from flask import Flask, render_template
-from db_setup import session
+from flask import Flask, render_template, redirect, url_for, session
+from db_setup import db_session
 from db_setup import Category, Book  # FETCH, define THE CATEGORY OBJECT
 from wtforms.ext.sqlalchemy.orm import model_form
-
+from flask_oauth import OAuth
+import json
 app = Flask(__name__)
+# one of the Redirect URIs from Google APIs console
 
+REDIRECT_URI = '/oauth'
+# Adding google_client_id
+GOOGLE_CLIENT_ID = '803014039877-a673nhe4pvjovn6oldhuf9vfmkrtfddh.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET = 'LQzkXCcqapAZaliVHLqg3W6r'
+oauth = OAuth()
 
-@app.route('/', methods=['GET'])
-def main():
-    '''Main page of the forum.'''
+# Inititalizing authorization api with Google
+google = oauth.remote_app('google',base_url='https://www.google.com/accounts/',
+authorize_url='https://accounts.google.com/o/oauth2/auth',request_token_url=None,request_token_params={'scope': 'https://www.googleapis.com/auth/userinfo.email','response_type': 'code'},access_token_url='https://accounts.google.com/o/oauth2/token',access_token_method='POST',access_token_params={'grant_type': 'authorization_code'},consumer_key=GOOGLE_CLIENT_ID,consumer_secret=GOOGLE_CLIENT_SECRET)
+SECRET_KEY = 'development key'
+##
+@app.route('/home')
+def index():
+  # check if token is avaliable
+  access_token = session.get('access_token')
+  if access_token is None:
+    return redirect(url_for('login')) # if token is not there redirect user to login page
 
-    # User is the name of table that has a column name
-    categories = session.query(Category).all()
-    books = session.query(Book).all()
+  access_token = access_token[0]
+  from urllib2 import Request, urlopen, URLError
 
-    return render_template("index.html", categories=categories, books=books)
+  headers = {'Authorization': 'OAuth '+access_token}
+  req = Request('https://www.googleapis.com/oauth2/v1/userinfo',None, headers)
+  try:
+    res = urlopen(req)
+  except URLError as e:
+    if e.code == 401:
+      # Unauthorized - bad token
+      session.pop('access_token', None) # delete the existing token
+      return redirect(url_for('login')) # redirect to login page
+  return render_template("home.html", data=json.loads(res.read())) #if all passes it is redirected to the actual responce/page
 
-
+####l user calls login  url should be redirected to google for authorize
 @app.route('/login')
 def login():
-    return render_template("log_in.html")
+  callback=url_for('authorized', _external=True)
+  return google.authorize(callback=callback) #ask google to authorize the userinformation
+
+@app.route(REDIRECT_URI)
+@google.authorized_handler
+def authorized(resp):
+  # google will call me back and then provide me access_token
+  access_token = resp['access_token']
+  # putting token in browser and can be reused many time
+  session['access_token'] = access_token, ''
+  # proceed to index page
+  return redirect(url_for('index'))
+
+@google.tokengetter
+def get_access_token():
+  # save token in session to reuse many time
+  return session.get('access_token')
+
+
+#@app.route('/login')
+#def login():
+#    return render_template("log_in.html")
     # return "<div class='login'>Login</div>"
 
 
@@ -42,9 +86,12 @@ def edit_book(id):
 # render turn into html
 
 
+
+
 app.config["TESTING"] = True
 app.config["FLASK_ENV"] = "development"
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
+app.secret_key = SECRET_KEY
 app.run(host='0.0.0.0', port=8000, debug=True)
 # main.py is running the server and
