@@ -37,7 +37,9 @@ def index():
       # Unauthorized - bad token
       session.pop('access_token', None) # delete the existing token
       return redirect(url_for('login')) # redirect to login page
-  return render_template("home.html", data=json.loads(res.read())) #if all passes it is redirected to the actual responce/page
+  # fetch all categories
+  categories = db_session.query(Category).all()
+  return render_template("home.html", data =json.loads(res.read()),categories = categories) #if all passes it is redirected to the actual responce/page
 
 ####l user calls login  url should be redirected to google for authorize
 @app.route('/login')
