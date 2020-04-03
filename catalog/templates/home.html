@@ -2,22 +2,111 @@
 <html>
 
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" type="text/css">
-
 <head>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Home</title>
 </head>
 
 <body>
-    <image src="{{data['picture']}}">
-        <h1>{{data}}</h1>
 
-        {% for user in all_users: %}
-     <p>
-    <a href="/users/{{user['id']}}/edit">User Email</a>
-    </p>
-{% endfor %}
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">BookStore</a>
+        <div>
+            <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+                <img src="{{data['picture']}}" width="32px" height="32px" class="rounded">
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                <li><a tabindex="-1" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main role="main" class="container">
+
+        <div class="starter-template">
+            <h1>Bootstrap starter template</h1>
+            <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text
+                and a mostly barebones HTML document.</p>
+        </div>
+
+        <div class="container">
+            <div class="col-xs-3">
+                <ul class="nav nav-tabs tabs-left">
+                    <li class="active"><a href="#ClientInfo" data-toggle="tab">Client Info</a></li>
+                    <li><a href="#tab2" data-toggle="tab">Tab 2</a></li>
+                    <li><a href="#tab3" data-toggle="tab">Tab 3</a></li>
+                    <li><a href="#tab4" data-toggle="tab">Tab 4</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-9">
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="ClientInfo">
+                        <div>
+                            <div>
+                                <div>
+                                    <label>
+                                        Name:
+                                    </label>
+                                </div>
+                                <div>
+                                    Shubham
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <label>
+                                        ID:
+                                    </label>
+                                </div>
+                                <div>
+                                    111
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <label>
+                                        Date of Birth:
+                                    </label>
+                                </div>
+                                <div>
+                                    06/11/1991
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab2">Tab 2.</div>
+                    <div class="tab-pane" id="tab3">Tab 3.</div>
+                    <div class="tab-pane" id="tab4">Tab 4.</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src=" https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
