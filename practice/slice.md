@@ -110,3 +110,115 @@ print(py_string[slice_object])   # noh
 #output
 noh
 ```
+
+#### Everything in python is an instance, variables can be instance of a class
+
+Slicing is an easy way to create sub-lists from larger lists. a slice can be used to obtain a subset of items from a list. A string is just a list of characters. For example:
+
+```python
+>>> my_string = "Hello, world!"
+>>> my_string[7:12] # from 7 to 12
+'world'
+
+```
+
+leave out one of the numbers in the slice. Leaving out the first number is equivalent to using a zero - think of this as “from the beginning.” Leaving out the last number is equivalent to using the length of the list you’re slicing - you can think of this as “until the end.” For example:
+
+```python
+>>> my_string = "Hello, world!"
+>>> my_string[:5] # from zero to 5
+'Hello'
+>>> my_string[7:] # from 7 to the end
+'world!'
+```
+
+#### to copy a list
+
+leave out both sides of the slice - “from the beginning, until the end.”
+
+```python
+
+>>> my_new_string = my_string[:]
+>>> my_new_string
+'Hello, world!'
+```
+
+##### Negative Indexing
+
+```python
+>>> my_string = "Hello, world!"
+>>> my_string[-6:] # from the end - 6 to the end
+'world!'
+>>> my_string[-10:-4] # from the end - 10 to the end - 4
+'lo, wo'
+
+```
+
+##### Get sublist and sub-tuple using negative index
+
+```python
+
+py_list = ['P', 'y', 't', 'h', 'o', 'n']
+py_tuple = ('P', 'y', 't', 'h', 'o', 'n')
+
+# contains indices -1, -2 and -3
+slice_object = slice(-1, -4, -1)
+print(py_list[slice_object])  # ['n', 'o', 'h']
+
+# contains indices -1 and -3
+slice_object = slice(-1, -5, -2)
+print(py_tuple[slice_object]) # ('n', 'h')
+
+# output
+
+['n', 'o', 'h']
+('n', 'h')
+
+```
+
+#### Slicing a List
+
+To make a slice, you specify the index of the first and last elements you
+want to work with. As with the range() function, Python stops one item
+before the second index you specify. To output the first three elements
+in a list, you would request indices 0 through 3, which would return elements 0, 1, and 2.
+
+```python
+players = ['mari', 'martina', 'tom', 'irena', 'eli']
+print(players[0:3])
+```
+
+any subset of a list can be generated. For example, if I want the second, third, and fourth items in a list, I would start the slice at index 1 and
+end at index 4:
+
+```python
+players = ['charles', 'martina', 'michael', 'florence', 'eli']
+print(players[1:4])
+```
+
+#### Looping Through a Slice
+
+a slice in a for loop can be used if I want to loop through a subset of
+the elements in a list. In the next example we loop through the first three
+players and print their names as part of a simple roster:
+
+```python
+players = ['charles', 'martina', 'michael', 'florence', 'eli']
+print("Here are the first three players on my team:")
+u for player in players[:3]:
+ print(player.title())
+
+```
+
+Instead of looping through the entire list of players , Python loops
+through only the first three names:
+
+```python
+Here are the first three players on my team:
+Charles
+Martina
+Michael
+
+```
+
+When working with data, slices can be used to process the data in chunks of a specific size.
