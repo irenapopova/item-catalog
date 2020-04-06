@@ -111,10 +111,7 @@ a[start:] # items start through the rest of the array
 a[:stop] # items from the beginning through stop-1
 a[:] # a copy of the whole array
 
- There is also the step value, which can be used with any of the above
-
-
-
+There is also the step value, which can be used with any of the above
 
 #### Sets nad Dictionaries
 
@@ -132,6 +129,8 @@ import random
 random.randint(0, 100)
 ```
 
+The instance knows about the class.
+
 #### Object Oriented Programming
 
 #### Classes
@@ -141,6 +140,12 @@ random.randint(0, 100)
 #### Initializer Method
 
 #### Class Methods
+
+```python
+@classmethod
+```
+
+### boolean is a subclass of int
 
 #### Types, instances & issubclass
 
