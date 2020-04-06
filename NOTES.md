@@ -111,6 +111,11 @@ a[start:] # items start through the rest of the array
 a[:stop] # items from the beginning through stop-1
 a[:] # a copy of the whole array
 
+ There is also the step value, which can be used with any of the above
+
+
+
+
 #### Sets nad Dictionaries
 
 #### Generator Expressions
