@@ -1,0 +1,9 @@
+#@app.route('/', methods=['GET'])
+#def main():
+ #   '''Main page of the forum.'''
+
+    # User is the name of table that has a column name
+  #  categories = session.query(Category).all()
+   # books = session.query(Book).all()
+
+    #return render_template("index.html", categories=categories, books=books)
