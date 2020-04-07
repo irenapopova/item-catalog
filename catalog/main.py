@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, session
+from flask import Flask, render_template, redirect, url_for, session, request
 from db_setup import db_session
 from db_setup import Category, Book  # FETCH, define THE CATEGORY OBJECT
 from wtforms.ext.sqlalchemy.orm import model_form
@@ -41,9 +41,20 @@ def index():
             # Unauthorized - bad token
             session.pop('access_token', None)  # delete the existing token
             return redirect(url_for('login'))  # redirect to login page
+
     # fetch all categories
     categories = db_session.query(Category).all()
+    # check if url is called with category id
+    category_id = request.args.get("id")
     books = db_session.query(Book).all()
+
+    # check if category id is provided in url
+    print(len(books))
+    print(category_id)
+    if category_id is not None:
+        print("i am inside "+str(category_id))
+        books = [book for book in books if book.category == int(category_id)]
+        print(len(books))
     # if all passes it is redirected to the actual responce/page
 
     return render_template("home.html", data=json.loads(res.read()), categories=categories, books=books)
