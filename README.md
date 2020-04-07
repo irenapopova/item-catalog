@@ -10,6 +10,11 @@ Virtual machine for the [Relational Databases](https://www.udacity.com/course/in
 
 #### My Second project
 
+#### Technologies used
+Python 
+Flask
+Flask-Bootstrap
+
 #### About
 
 An application with catalog functionality.
