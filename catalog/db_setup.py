@@ -5,6 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from random import randint
 Base = declarative_base()
 
 
@@ -14,7 +15,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
 
-    def __init__(self):
+    def __init__(self, id, name):
         self.id = id
         self.name = name
 
@@ -41,6 +42,15 @@ class Book(Base):
     image = Column(String(300), nullable=False)
 
     def __init__(self):
+        self.id = id
+        self.category = category
+        self.name = name
+        self.author = author
+        self.price = price
+        self.description = description
+        self.image = image
+
+    def __init__(self, id, category, name, author, price, description, image):
         self.id = id
         self.category = category
         self.name = name
