@@ -65,7 +65,19 @@ catalog
 clone the project
 run in project file in terminal :
 
+#### App also JSON end points on below urls:
+```
+/categories
+/books
+/books
+/category/<int:id>
+/books/<int:id>
+/category/<int:id>/books
+```
+Run python api.py for the above end points
+
 - `pip install -r requirements.txt`
 - `cd catalog`
 - `python main.py`
 - open `http://127.0.0.1:8000/`
+- open [Live Demo](https://item-catalog-ipopova.herokuapp.com/home)
