@@ -5,6 +5,9 @@ from wtforms.ext.sqlalchemy.orm import model_form
 from flask_oauth import OAuth
 import json
 from flask_bootstrap import Bootstrap
+from forms import CategoryForm, BookForm
+from random import randint
+
 app = Flask(__name__)
 Bootstrap(app)
 # one of the Redirect URIs from Google APIs console
@@ -100,12 +103,59 @@ def book_detail(id):
 # fetches the data
 
 
-BookForm = model_form(Book)
+# BookForm = model_form(Book)
 @app.route('/books/<id>/edit')  # the id is the named parameter in the url_for
 def edit_book(id):
     pass  # do nothing simply continue
 
 # render turn into html
+
+# remove session token from google and then redirect to anonymous
+@app.route("/logout")
+def logout():
+    session.pop('access_token', None)
+    return redirect("/")
+
+
+@app.route('/')
+def anonymous():
+    categories = db_session.query(Category).all()
+    # check if url is called with category id
+    category_id = request.args.get("id")
+    books = db_session.query(Book).all()
+    # check if category id is provided in url
+    if category_id is not None:
+        books = [book for book in books if book.category == int(category_id)]
+    # if all passes it is redirected to the actual responce/page
+    return render_template("home.html", data={}, categories=categories, books=books)
+
+
+@app.route('/category', methods=['GET', 'POST'])
+def register():
+    form = CategoryForm(request.form)
+    if request.method == 'POST' and form.validate():
+        # auto generate category id in betwen 10 - 20000
+        category = Category(randint(10, 20000), form.name.data)
+        db_session.add(category)
+        return redirect('/home')
+    return render_template('category_create.html', form=form)
+
+
+@app.route('/book', methods=['GET', 'POST'])
+def book():
+    form = BookForm(request.form)
+    print(form)
+    catgories = db_session.query(Category).all()
+    # create category list
+    catgories_list = [(category.id, category.name) for category in catgories]
+    form.category.choices = catgories_list
+    if request.method == 'POST' and form.validate():
+        # auto generate category id in bettwen 10 - 20000
+        book = Book(randint(10, 20000),
+                    form.category.data, form.name.data, form.author.data, form.price.data, form.description.data, form.image.data)
+        db_session.add(book)
+        return redirect('/home')
+    return render_template('book_create.html', form=form)
 
 
 app.config["TESTING"] = True
