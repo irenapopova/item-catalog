@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, session, request
 from db_setup import db_session
-from db_setup import Category, Book  # FETCH, define THE CATEGORY OBJECT
+# FETCH, define THE CATEGORY OBJECT
+from db_setup import Category, Book, Favorite
 from wtforms.ext.sqlalchemy.orm import model_form
 from flask_oauth import OAuth
 import json
@@ -59,7 +60,11 @@ def index():
        # print(len(books))
     # if all passes it is redirected to the actual responce/page
 
-    return render_template("home.html", data=json.loads(res.read()), categories=categories, books=books)
+    # get favortiees of the user
+    all_fav = db_session.query(Favorite).all()
+    # 123:456
+    my_fav = [str(fav.book)+":"+str(fav.user) for fav in all_fav]
+    return render_template("home.html", data=json.loads(res.read()), categories=categories, books=books, fav=my_fav)
 
 # l user calls login  url should be redirected to google for authorize
 @app.route('/login')
@@ -86,10 +91,24 @@ def get_access_token():
     return session.get('access_token')
 
 
-# @app.route('/login')
-# def login():
-#    return render_template("log_in.html")
+@app.route('/fav')
+def fav():
+    user_id = request.args.get("user")[:5]
+    all_fav = db_session.query(Favorite).all()
+    my_fav_books = [fav.book for fav in all_fav if int(fav.user) == int(user_id)]
+    print(my_fav_books)
+    books_list = db_session.query(Book).filter(Book.id.in_(tuple(my_fav_books))).all()
+    return render_template("fav.html",books=books_list)
     # return "<div class='login'>Login</div>"
+
+
+@app.route("/create_fav")
+def create_fav():
+    user_id = request.args.get("user_id")
+    book_id = request.args.get("book_id")
+    favorite = Favorite(user_id, book_id)
+    db_session.add(favorite)
+    return redirect("/home")
 
 
 @app.route('/categories/<id>')  # the id is the named parameter in the url_for

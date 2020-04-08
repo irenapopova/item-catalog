@@ -18,23 +18,17 @@
     <a class="navbar-brand ml-5 pl-2" href="#">BookSwap</a>
     <!-- ul elements added in navbar-->
     <form class="form-inline">
-        <input class="form-control mr-sm-2 search" type="search" placeholder="Search" aria-label="Search" style="width:100px !important">
+        <input class="form-control mr-sm-2 search" type="search" placeholder="Search" aria-label="Search">
     </form>
     <ul class="list-inline">
-
+        <li class="list-inline-item">
             {% if data.get('id','NO_USER') == 'NO_USER' %}
             <a class="nav-link" href="/home">Login</span></a>
             {% else %}
-            <li class="list-inline-item">
             <a class="nav-link" href="/fav?user={{data['id']}}">Favorites</span></a>
-            </li>
-            <li class="list-inline-item">
             <a class="nav-link" href="/logout">Logout</span></a>
-            </li>
-            <li class="list-inline-item" style="border: 2px white solid">
-              <img src="{{data['picture']}}" width=30 height=30>
-            </li>
             {% endif %}
+        </li>
     </ul>
     ​
 </nav>
@@ -74,11 +68,11 @@
                         </button>
                         {% if data.get('id','NO_USER') != 'NO_USER' %}
                         <a href="/create_fav?user_id={{data['id'][:5]}}&book_id={{book.id}}">
-                            <i class="fas fa-heart float-right fa-2x {{'selected-red' if (book.id|string + ':' + data['id'][:5]|string) in fav else 'unselected-red'}}"
-                               ></i>
+                            <i class="fas fa-heart float-right fa-2x {{'selected-red' if (book.id|string + ':' + data['id']|string) in fav else 'unselected-red'}}"
+                                style="color: 'lightgray;''"></i>
                         </a>
                         {% endif %}
-
+                        <h1>{{fav}}</h1>
                     </div>
                 </div>
                 <div class="modal" id="bookDetails{{book.id}}" tabindex="-1" role="dialog"

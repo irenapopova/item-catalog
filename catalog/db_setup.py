@@ -94,18 +94,18 @@ class User(Base):
 class Favorite(Base):
     __tablename__ = 'favorite'
     id = Column(Integer, primary_key=True)
-    user = Column(Integer, ForeignKey("user.id"))
+    user = Column(Integer, nullable=False)
     book = Column(Integer, ForeignKey("book.id"))
 
-    def __init__(self):
-        self.id = id
-        self.name = name
+    def __init__(self, user_id, book_id):
+        self.user = user_id
+        self.book = book_id
 
     @property
     def serialize(self):
         return {
             'id': self.id,
-            'name': self.name
+            'user': self.user
         }
 
 

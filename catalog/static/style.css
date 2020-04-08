@@ -159,13 +159,36 @@ select,
 textarea,
 input {
     min-width: 500px;
-    border-color: red;
+    border-color: lightskyblue;
     border-radius: 5px;
     width: 400px;
 
 }
 
-.form {
+form {
     border-color: lightblue;
-    
+}
+
+/* Applicable for only Hover : if there is a space between the two properties , the css will apply only to the second one, with the dot I point out the class name, I have two btn classes*/
+.btn.btn-primary:hover {
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    /*width: 200px; */
+    background-color: red;
+    transition: all 0.2s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.navbar-brand {
+    font-size: 24px;
+}
+
+.selected-red {
+    color: red;
+}
+
+.unselected-red {
+    color: lightblue;
 }
