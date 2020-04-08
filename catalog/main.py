@@ -15,7 +15,7 @@ GOOGLE_CLIENT_ID = '803014039877-a673nhe4pvjovn6oldhuf9vfmkrtfddh.apps.googleuse
 GOOGLE_CLIENT_SECRET = 'LQzkXCcqapAZaliVHLqg3W6r'
 oauth = OAuth()
 
-# Inititalizing authorization api with Google
+# Initializing authorization api with Google
 google = oauth.remote_app('google', base_url='https://www.google.com/accounts/',
                           authorize_url='https://accounts.google.com/o/oauth2/auth', request_token_url=None, request_token_params={'scope': 'https://www.googleapis.com/auth/userinfo.email', 'response_type': 'code'}, access_token_url='https://accounts.google.com/o/oauth2/token', access_token_method='POST', access_token_params={'grant_type': 'authorization_code'}, consumer_key=GOOGLE_CLIENT_ID, consumer_secret=GOOGLE_CLIENT_SECRET)
 SECRET_KEY = 'development key'
@@ -47,14 +47,13 @@ def index():
     # check if url is called with category id
     category_id = request.args.get("id")
     books = db_session.query(Book).all()
-
     # check if category id is provided in url
-    print(len(books))
-    print(category_id)
+    # print(len(books))
+    # print(category_id)
     if category_id is not None:
-        print("i am inside "+str(category_id))
+        # print("i am inside "+str(category_id))
         books = [book for book in books if book.category == int(category_id)]
-        print(len(books))
+       # print(len(books))
     # if all passes it is redirected to the actual responce/page
 
     return render_template("home.html", data=json.loads(res.read()), categories=categories, books=books)
