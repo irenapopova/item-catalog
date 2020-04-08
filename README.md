@@ -11,27 +11,61 @@ Virtual machine for the [Relational Databases](https://www.udacity.com/course/in
 #### My Second project
 
 #### Technologies used
-Python 
+Python
 Flask
 Flask-Bootstrap
+HTML,CSS and JS
+
 
 #### About
 
-An application with catalog functionality.
-This application provides a list of items within a variety of categories as well as provide a user registration and authentication system. Registered users will have the ability to post, edit, and delete their own items.
+An application with catalog functionality. <br/><br/>
+This application provides a list of items(Books) within a variety of **categories** as well as provide a user authentication system using google APIS instead of in house.
+
+Registered users will have the ability to post, edit, and delete their own items(books) and also can store their favorites for future.
 
 #### Project Structure (the tree)
-
+```
+catalog
+├── README.txt
+├── api
+├── api.py
+├── db.db
+├── db.db-journal
+├── db_setup.py
+├── db_setup.pyc
+├── forms.py
+├── forms.pyc
+├── js
+│   └── app.js
+├── main.py
+├── populate_data.py
+├── requirements.txt
+├── static
+│   └── style.css
+└── templates
+    ├── _formhelpers.html
+    ├── book.html
+    ├── bookDetail.html
+    ├── book_create.html
+    ├── category.html
+    ├── category_create.html
+    ├── editBook.html
+    ├── fav.html
+    ├── genres.html
+    ├── home.htm.bkpl
+    ├── home.html
+    ├── index.html
+    ├── log_in.html
+    ├── newBook.html
+    └── signin.html
+```
 #### Steps to run this project
 
 clone the project
-run in project file in terminal : flask run
+run in project file in terminal :
 
-1. Install Docker and VirtuallBox
-2. Clone this repository.
-3. Launch and run the Virtuall Machine
-4. Run ssh
-5. Switch a folder with a command cd /
-6. Run DB with a command python main.py
-7. Launch the application with a command : python w.py
-8. Open it in your browser localhost:5000
+- `pip install -r requirements.txt`
+- `cd catalog`
+- `python main.py`
+- open `http://127.0.0.1:8000/`
