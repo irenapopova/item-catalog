@@ -149,3 +149,23 @@ a.article-title:hover {
 .card {
     padding-bottom: 10px !important;
 }
+
+.fa-heart:hover {
+    color: red !important;
+    cursor: pointer;
+}
+
+select,
+textarea,
+input {
+    min-width: 500px;
+    border-color: red;
+    border-radius: 5px;
+    width: 400px;
+
+}
+
+.form {
+    border-color: lightblue;
+    
+}
