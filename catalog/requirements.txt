@@ -9,3 +9,4 @@ WTForm==1.0
 WTForms==2.2.1
 Flask-Bootstrap==3.3.7.1
 Flask-OAuth==0.12
+gunicorn==19.10.0
